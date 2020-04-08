@@ -4,7 +4,7 @@ import { badRequest } from '../helpers/httpHelper'
 
 export class SignUpController {
   handle (httpResquet: HttpRequest): HttpResponse {
-    const requiredFields = ['name', 'email']
+    const requiredFields = ['name', 'email', 'password']
     for (const field of requiredFields) {
       if (!httpResquet.body[field]) {
         return badRequest(new MissingParamError(field))
