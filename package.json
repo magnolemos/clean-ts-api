@@ -4,6 +4,9 @@
   "description": "Estudo de node com TS e Jest",
   "main": "index.js",
   "scripts": {
+    "start-mongodb": "mongod --config /Users/magnolemos/Documents/study/mongodb/config/mongod.conf",
+    "get-process-mongo": "ps -ef | grep mongo",
+    "kill-process-mongodb": "kill {number}",
     "start": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
