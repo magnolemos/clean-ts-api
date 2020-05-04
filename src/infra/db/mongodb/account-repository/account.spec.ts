@@ -1,5 +1,5 @@
-import { MongoHelper } from '../helpers/helper'
 import { AccountMongoRespository } from './account'
+import { MongoHelper } from '../helpers/mongo-helper'
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
@@ -11,7 +11,7 @@ describe('Account Mongo Repository', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = MongoHelper.getCollection('accounts')
+    const accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
 
