@@ -27,7 +27,6 @@ const makeFakeAccount = (): AccountModel => ({
   name: 'valid_name',
   email: 'valid_email@email.com',
   password: 'valid_password'
-
 })
 
 const makeFakeRequest = (): HttpRequest => ({
