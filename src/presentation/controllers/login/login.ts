@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
-import { badRequest } from '../../helpers/httpHelper'
+import { badRequest, serverError } from '../../helpers/httpHelper'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { EmailValidator } from '../signup/signup.protocols'
 
@@ -11,16 +11,20 @@ export class LoginController implements Controller {
   }
 
   async handle (httpResquet: HttpRequest): Promise<HttpResponse> {
-    const { email, password } = httpResquet.body
-    if (!email) {
-      return await new Promise(resolve => resolve(badRequest(new MissingParamError('email'))))
-    }
-    if (!password) {
-      return await new Promise(resolve => resolve(badRequest(new MissingParamError('password'))))
-    }
-    const isValid = this.emailValidator.isValid(email)
-    if (!isValid) {
-      return await new Promise(resolve => resolve(badRequest(new InvalidParamError('email'))))
+    try {
+      const { email, password } = httpResquet.body
+      if (!email) {
+        return await new Promise(resolve => resolve(badRequest(new MissingParamError('email'))))
+      }
+      if (!password) {
+        return await new Promise(resolve => resolve(badRequest(new MissingParamError('password'))))
+      }
+      const isValid = this.emailValidator.isValid(email)
+      if (!isValid) {
+        return await new Promise(resolve => resolve(badRequest(new InvalidParamError('email'))))
+      }
+    } catch (error) {
+      return serverError(error)
     }
   }
 }
